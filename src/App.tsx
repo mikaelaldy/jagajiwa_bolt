@@ -6,6 +6,7 @@ import ChatbotPage from './pages/ChatbotPage';
 import MoodTrackerPage from './pages/MoodTrackerPage';
 import EmergencyPage from './pages/EmergencyPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AssessmentHistoryPage from './pages/AssessmentHistoryPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/assessment" element={<AssessmentPage />} />
+        <Route path="/assessment-history" element={<AssessmentHistoryPage />} />
         <Route path="/chatbot" element={<ChatbotPage />} />
         <Route path="/mood-tracker" element={<MoodTrackerPage />} />
         <Route path="/emergency" element={<EmergencyPage />} />

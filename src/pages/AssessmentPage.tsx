@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AppLayout from '../components/layout/AppLayout';
-import { Button } from '../components/ui/Button';
+import { Button, LinkButton } from '../components/ui/Button';
 import { Card, CardBody, CardFooter } from '../components/ui/Card';
 import QuestionCard from '../components/assessment/QuestionCard';
 import ResultCard from '../components/assessment/ResultCard';
@@ -8,6 +8,7 @@ import { gamblingAssessmentQuestions, mentalHealthAssessmentQuestions } from '..
 import { calculateGamblingResult, calculateMentalHealthResult } from '../utils/assessment';
 import { saveAssessmentResult } from '../utils/storage';
 import { AssessmentResult } from '../types';
+import { BookOpen } from 'lucide-react';
 
 const AssessmentPage: React.FC = () => {
   const [assessmentType, setAssessmentType] = useState<'gambling' | 'mental-health' | null>(null);
@@ -86,6 +87,12 @@ const AssessmentPage: React.FC = () => {
               Ambil self-assessment untuk mengevaluasi kondisi Anda. Semua hasil bersifat pribadi
               dan hanya disimpan di perangkat Anda.
             </p>
+            
+            <div className="text-center mb-8">
+              <LinkButton to="/assessment-history" variant="ghost" icon={<BookOpen className="w-4 h-4 mr-1" />}>
+                Lihat Riwayat Assessment
+              </LinkButton>
+            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card hoverable className="transition-transform hover:translate-y-[-5px]">

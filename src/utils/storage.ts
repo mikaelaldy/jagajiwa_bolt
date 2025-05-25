@@ -17,6 +17,12 @@ export const getLatestAssessmentResult = (): AssessmentResult | null => {
   return results.length > 0 ? results[results.length - 1] : null;
 };
 
+export const deleteAssessmentResult = (timestamp: number): void => {
+  let results = getAssessmentResults();
+  results = results.filter(result => result.timestamp !== timestamp);
+  localStorage.setItem('assessmentResults', JSON.stringify(results));
+};
+
 // Mood Tracking Storage
 export const saveMoodEntry = (entry: MoodEntry): void => {
   const entries = getMoodEntries();
@@ -32,6 +38,20 @@ export const getMoodEntries = (): MoodEntry[] => {
 export const getLatestMoodEntry = (): MoodEntry | null => {
   const entries = getMoodEntries();
   return entries.length > 0 ? entries[entries.length - 1] : null;
+};
+
+export const updateMoodEntry = (updatedEntry: MoodEntry): void => {
+  let entries = getMoodEntries();
+  entries = entries.map(entry => 
+    entry.timestamp === updatedEntry.timestamp ? updatedEntry : entry
+  );
+  localStorage.setItem('moodEntries', JSON.stringify(entries));
+};
+
+export const deleteMoodEntry = (timestamp: number): void => {
+  let entries = getMoodEntries();
+  entries = entries.filter(entry => entry.timestamp !== timestamp);
+  localStorage.setItem('moodEntries', JSON.stringify(entries));
 };
 
 // Chat Message Storage

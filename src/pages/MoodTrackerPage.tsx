@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AppLayout from '../components/layout/AppLayout';
 import { Card, CardBody, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -7,7 +7,8 @@ import MoodSelector from '../components/mood/MoodSelector';
 import MoodChart from '../components/mood/MoodChart';
 import MoodCalendar from '../components/mood/MoodCalendar';
 import { MoodEntry } from '../types';
-import { saveMoodEntry, getMoodEntries } from '../utils/storage';
+import { saveMoodEntry, getMoodEntries, updateMoodEntry, deleteMoodEntry } from '../utils/storage';
+import { Edit3, Trash2, XCircle } from 'lucide-react';
 
 const MoodTrackerPage: React.FC = () => {
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
@@ -15,14 +16,48 @@ const MoodTrackerPage: React.FC = () => {
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [editingEntryTimestamp, setEditingEntryTimestamp] = useState<number | null>(null);
+  const moodFormRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    loadMoodEntries();
+  }, []);
+
+  const loadMoodEntries = () => {
     const entries = getMoodEntries();
     setMoodEntries(entries);
-  }, []);
+  };
 
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNotes(e.target.value);
+  };
+
+  const resetForm = () => {
+    setSelectedMood(null);
+    setNotes('');
+    setEditingEntryTimestamp(null);
+    setIsSubmitting(false);
+  };
+
+  const handleEditEntry = (entry: MoodEntry) => {
+    setEditingEntryTimestamp(entry.timestamp);
+    setSelectedMood(entry.mood);
+    setNotes(entry.notes);
+    moodFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleDeleteEntry = (timestamp: number) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus catatan mood ini?')) {
+      deleteMoodEntry(timestamp);
+      loadMoodEntries();
+      setSuccessMessage('Mood berhasil dihapus!');
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+      if (editingEntryTimestamp === timestamp) {
+        resetForm();
+      }
+    }
   };
 
   const handleSubmit = () => {
@@ -30,28 +65,35 @@ const MoodTrackerPage: React.FC = () => {
     
     setIsSubmitting(true);
     
-    const newEntry: MoodEntry = {
-      mood: selectedMood,
-      notes: notes,
-      timestamp: Date.now(),
-    };
+    if (editingEntryTimestamp) {
+      const updatedEntry: MoodEntry = {
+        mood: selectedMood,
+        notes: notes,
+        timestamp: editingEntryTimestamp,
+      };
+      updateMoodEntry(updatedEntry);
+      setSuccessMessage('Mood berhasil diperbarui!');
+    } else {
+      const newEntry: MoodEntry = {
+        mood: selectedMood,
+        notes: notes,
+        timestamp: Date.now(),
+      };
+      saveMoodEntry(newEntry);
+      setSuccessMessage('Mood berhasil disimpan!');
+    }
     
-    saveMoodEntry(newEntry);
-    
-    // Update local state
-    setMoodEntries([...moodEntries, newEntry]);
-    
-    // Reset form
-    setSelectedMood(null);
-    setNotes('');
-    
-    // Show success message
+    loadMoodEntries();
+    resetForm();
+        
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
     }, 3000);
-    
-    setIsSubmitting(false);
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
   };
 
   return (
@@ -60,35 +102,48 @@ const MoodTrackerPage: React.FC = () => {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">Mood Tracker</h1>
           
-          {/* Mood Entry Form */}
-          <Card className="mb-8">
-            <CardBody>
-              <h2 className="text-lg font-medium text-gray-800 mb-4">Bagaimana perasaan Anda hari ini?</h2>
-              <MoodSelector selected={selectedMood} onChange={setSelectedMood} />
-              
-              <div className="mt-6">
-                <TextArea
-                  id="mood-notes"
-                  name="notes"
-                  value={notes}
-                  onChange={handleNotesChange}
-                  label="Catatan (opsional)"
-                  placeholder="Ceritakan lebih detail tentang perasaan Anda..."
-                  rows={3}
-                />
-              </div>
-            </CardBody>
-            <CardFooter className="flex justify-end">
-              <Button
-                onClick={handleSubmit}
-                disabled={!selectedMood || isSubmitting}
-              >
-                {isSubmitting ? 'Menyimpan...' : 'Simpan Mood'}
-              </Button>
-            </CardFooter>
-          </Card>
+          <div ref={moodFormRef}>
+            <Card className="mb-8">
+              <CardBody>
+                <h2 className="text-lg font-medium text-gray-800 mb-4">
+                  {editingEntryTimestamp ? 'Edit Catatan Mood' : 'Bagaimana perasaan Anda hari ini?'}
+                </h2>
+                <MoodSelector selected={selectedMood} onChange={setSelectedMood} />
+                
+                <div className="mt-6">
+                  <TextArea
+                    id="mood-notes"
+                    name="notes"
+                    value={notes}
+                    onChange={handleNotesChange}
+                    label="Catatan (opsional)"
+                    placeholder="Ceritakan lebih detail tentang perasaan Anda..."
+                    rows={3}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter className="flex justify-end gap-2">
+                {editingEntryTimestamp && (
+                  <Button
+                    variant="outline"
+                    onClick={handleCancelEdit}
+                    icon={<XCircle className="w-4 h-4"/>}
+                  >
+                    Batal Edit
+                  </Button>
+                )}
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!selectedMood || isSubmitting}
+                >
+                  {isSubmitting 
+                    ? (editingEntryTimestamp ? 'Memperbarui...' : 'Menyimpan...') 
+                    : (editingEntryTimestamp ? 'Update Mood' : 'Simpan Mood')}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
           
-          {/* Success Message */}
           {showSuccess && (
             <div className="bg-success-100 text-success-700 p-4 rounded-lg mb-6 flex items-center">
               <svg
@@ -103,17 +158,15 @@ const MoodTrackerPage: React.FC = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <p>Mood berhasil disimpan!</p>
+              <p>{successMessage}</p>
             </div>
           )}
           
-          {/* Mood Chart and Calendar */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
             <MoodChart entries={moodEntries} />
             <MoodCalendar entries={moodEntries} />
           </div>
           
-          {/* Mood History */}
           <h2 className="text-lg font-medium text-gray-800 mb-4">Riwayat Mood</h2>
           {moodEntries.length === 0 ? (
             <p className="text-gray-500 text-center py-8">
@@ -123,8 +176,13 @@ const MoodTrackerPage: React.FC = () => {
             <div className="space-y-4">
               {[...moodEntries]
                 .sort((a, b) => b.timestamp - a.timestamp)
-                .map((entry, index) => (
-                  <MoodHistoryItem key={index} entry={entry} />
+                .map((entry) => (
+                  <MoodHistoryItem 
+                    key={entry.timestamp}
+                    entry={entry} 
+                    onEdit={() => handleEditEntry(entry)}
+                    onDelete={() => handleDeleteEntry(entry.timestamp)}
+                  />
                 ))}
             </div>
           )}
@@ -136,9 +194,11 @@ const MoodTrackerPage: React.FC = () => {
 
 interface MoodHistoryItemProps {
   entry: MoodEntry;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry }) => {
+const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry, onEdit, onDelete }) => {
   const moodLabels: Record<string, string> = {
     great: 'Sangat Baik',
     good: 'Baik',
@@ -171,16 +231,26 @@ const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry }) => {
   return (
     <Card>
       <CardBody>
-        <div className="flex justify-between items-center mb-2">
-          <div className="text-sm text-gray-500">
-            {formattedDate} • {formattedTime}
+        <div className="flex justify-between items-start mb-2">
+          <div>
+            <div className="text-sm text-gray-500">
+              {formattedDate} • {formattedTime}
+            </div>
+            <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${moodColors[entry.mood]} mt-1`}>
+              {moodLabels[entry.mood]}
+            </div>
           </div>
-          <div className={`px-3 py-1 rounded-full text-sm font-medium ${moodColors[entry.mood]}`}>
-            {moodLabels[entry.mood]}
+          <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+            <Button variant="ghost" size="sm" onClick={onEdit} icon={<Edit3 className="w-4 h-4"/>} className="text-primary-600 hover:bg-primary-50">
+              Edit
+            </Button>
+            <Button variant="ghost" size="sm" onClick={onDelete} icon={<Trash2 className="w-4 h-4"/>} className="text-error-600 hover:bg-error-50">
+              Hapus
+            </Button>
           </div>
         </div>
         {entry.notes && (
-          <p className="text-gray-700">{entry.notes}</p>
+          <p className="text-gray-700 whitespace-pre-wrap">{entry.notes}</p>
         )}
       </CardBody>
     </Card>

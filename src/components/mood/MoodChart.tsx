@@ -66,28 +66,28 @@ const MoodChart: React.FC<MoodChartProps> = ({ entries }) => {
       <ResponsiveContainer width="100%" height={250}>
         <LineChart
           data={chartData}
-          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+          margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis 
             dataKey="date" 
-            stroke="#9ca3af" 
+            stroke="#4b5563"
             fontSize={12} 
             tickLine={false}
           />
           <YAxis 
-            stroke="#9ca3af" 
+            stroke="#4b5563"
             fontSize={12} 
             tickLine={false}
             domain={[1, 5]}
             ticks={[1, 2, 3, 4, 5]}
             tickFormatter={(value) => {
               const labels: Record<number, string> = {
-                1: 'SB',
-                2: 'B',
-                3: 'N',
-                4: 'B',
-                5: 'SB',
+                1: 'S. Buruk',
+                2: 'Buruk',
+                3: 'Biasa',
+                4: 'Baik',
+                5: 'S. Baik',
               };
               return labels[value];
             }}
@@ -103,12 +103,12 @@ const MoodChart: React.FC<MoodChartProps> = ({ entries }) => {
           />
         </LineChart>
       </ResponsiveContainer>
-      <div className="flex justify-between text-xs text-gray-500 mt-2">
-        <span>SB = Sangat Buruk</span>
-        <span>B = Buruk</span>
-        <span>N = Netral</span>
-        <span>B = Baik</span>
-        <span>SB = Sangat Baik</span>
+      <div className="flex justify-between text-sm text-gray-600 mt-3 flex-wrap gap-x-2 gap-y-1">
+        <span>S. Buruk = Sangat Buruk</span>
+        <span>Baik</span>
+        <span>Biasa</span>
+        <span>Buruk</span>
+        <span>S. Baik = Sangat Baik</span>
       </div>
     </div>
   );

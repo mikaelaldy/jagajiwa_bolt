@@ -1,5 +1,5 @@
 import React from 'react';
-import { SmilePlus, Smile, Meh, Frown, Frown as FrownPlus } from 'lucide-react';
+import { SmilePlus, Smile, Meh, Frown } from 'lucide-react';
 
 type Mood = 'great' | 'good' | 'neutral' | 'bad' | 'terrible';
 
@@ -9,36 +9,47 @@ interface MoodSelectorProps {
 }
 
 const MoodSelector: React.FC<MoodSelectorProps> = ({ selected, onChange }) => {
-  const moods: { value: Mood; label: string; icon: JSX.Element; color: string }[] = [
-    { 
-      value: 'great', 
-      label: 'Sangat Baik', 
-      icon: <SmilePlus />,
-      color: 'bg-success-100 text-success-600 border-success-200',
+  const moods: {
+    value: Mood;
+    label: string;
+    icon: JSX.Element;
+    selectedButtonClasses: string;
+    defaultIconContainerClasses: string;
+  }[] = [
+    {
+      value: 'great',
+      label: 'Sangat Baik',
+      icon: <SmilePlus className="w-6 h-6" />,
+      selectedButtonClasses: 'bg-success-100 text-success-700',
+      defaultIconContainerClasses: 'bg-gray-100 text-gray-600',
     },
-    { 
-      value: 'good', 
-      label: 'Baik', 
-      icon: <Smile />,
-      color: 'bg-secondary-100 text-secondary-600 border-secondary-200',
+    {
+      value: 'good',
+      label: 'Baik',
+      icon: <Smile className="w-6 h-6" />,
+      selectedButtonClasses: 'bg-secondary-100 text-secondary-700',
+      defaultIconContainerClasses: 'bg-gray-100 text-gray-600',
     },
-    { 
-      value: 'neutral', 
-      label: 'Biasa', 
-      icon: <Meh />,
-      color: 'bg-gray-100 text-gray-600 border-gray-200',
+    {
+      value: 'neutral',
+      label: 'Biasa',
+      icon: <Meh className="w-6 h-6" />,
+      selectedButtonClasses: 'bg-gray-200 text-gray-700',
+      defaultIconContainerClasses: 'bg-gray-100 text-gray-600',
     },
-    { 
-      value: 'bad', 
-      label: 'Buruk', 
-      icon: <Frown />,
-      color: 'bg-warning-100 text-warning-600 border-warning-200',
+    {
+      value: 'bad',
+      label: 'Buruk',
+      icon: <Frown className="w-6 h-6" />,
+      selectedButtonClasses: 'bg-warning-100 text-warning-700',
+      defaultIconContainerClasses: 'bg-gray-100 text-gray-600',
     },
-    { 
-      value: 'terrible', 
-      label: 'Sangat Buruk', 
-      icon: <FrownPlus />,
-      color: 'bg-error-100 text-error-600 border-error-200',
+    {
+      value: 'terrible',
+      label: 'Sangat Buruk',
+      icon: <Frown className="w-6 h-6" />,
+      selectedButtonClasses: 'bg-error-100 text-error-700',
+      defaultIconContainerClasses: 'bg-gray-100 text-gray-600',
     },
   ];
 
@@ -48,20 +59,20 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ selected, onChange }) => {
         <button
           key={mood.value}
           onClick={() => onChange(mood.value)}
-          className={`flex flex-col items-center p-3 rounded-lg border-2 transition-all ${
+          className={`flex flex-col items-center p-3 rounded-lg border-2 transition-all w-24 h-28 justify-center ${
             selected === mood.value
-              ? `${mood.color} border-2`
+              ? `${mood.selectedButtonClasses} border-primary-500`
               : 'bg-white border-gray-200 hover:bg-gray-50'
           }`}
         >
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-colors duration-200 ${
             selected === mood.value
-              ? mood.color
-              : 'bg-gray-100 text-gray-500'
+              ? 'bg-primary-500 text-white'
+              : mood.defaultIconContainerClasses
           }`}>
             {mood.icon}
           </div>
-          <span className="text-sm font-medium">{mood.label}</span>
+          <span className="text-sm font-medium text-center">{mood.label}</span>
         </button>
       ))}
     </div>

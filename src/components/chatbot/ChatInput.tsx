@@ -24,14 +24,14 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = false }
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Ketik pesan Anda di sini..."
-        className="flex-grow rounded-full border border-gray-300 px-4 py-2 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition duration-200"
+        className="flex-grow rounded-full border border-gray-400 px-4 py-2 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition duration-200"
         disabled={disabled}
       />
       <button
         type="submit"
         className={`rounded-full w-10 h-10 flex items-center justify-center transition-colors ${
           message.trim() && !disabled
-            ? 'bg-primary-500 text-white hover:bg-primary-600'
+            ? 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700'
             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
         }`}
         disabled={!message.trim() || disabled}

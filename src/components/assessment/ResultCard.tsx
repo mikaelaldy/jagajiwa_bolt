@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AssessmentResult } from '../../types';
 import { Card, CardBody, CardFooter } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -10,6 +11,7 @@ interface ResultCardProps {
 }
 
 const ResultCard: React.FC<ResultCardProps> = ({ result, onClose }) => {
+  const navigate = useNavigate();
   const date = new Date(result.timestamp).toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'long',
@@ -98,7 +100,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, onClose }) => {
         </Button>
         <Button 
           variant="primary"
-          onClick={onClose}
+          onClick={() => navigate('/assessment-history')}
         >
           Selesai
         </Button>

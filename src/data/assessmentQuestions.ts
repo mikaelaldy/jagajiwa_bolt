@@ -3,90 +3,90 @@ import { Question } from '../types';
 export const gamblingAssessmentQuestions: Question[] = [
   {
     id: 1,
-    text: "How often do you find yourself thinking about gambling or planning to gamble?",
+    text: "Seberapa sering Anda memikirkan tentang perjudian atau berencana untuk berjudi?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 2,
-    text: "Have you needed to gamble with increasing amounts of money to get the same excitement?",
+    text: "Apakah Anda perlu berjudi dengan jumlah uang yang semakin meningkat untuk mendapatkan kesenangan yang sama?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 3,
-    text: "Have you felt restless or irritable when trying to cut down or stop gambling?",
+    text: "Apakah Anda merasa gelisah atau mudah marah ketika mencoba mengurangi atau berhenti berjudi?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 4,
-    text: "Have you gambled to escape problems or relieve feelings of helplessness, guilt, anxiety, or depression?",
+    text: "Apakah Anda berjudi untuk lari dari masalah atau meredakan perasaan tidak berdaya, bersalah, cemas, atau depresi?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 5,
-    text: "After losing money gambling, have you returned to try to win back your losses?",
+    text: "Setelah kalah berjudi, apakah Anda kembali berjudi untuk mencoba memenangkan kembali uang yang hilang?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 6,
-    text: "Have you lied to conceal the extent of your gambling?",
+    text: "Apakah Anda pernah berbohong untuk menutupi sejauh mana keterlibatan Anda dalam perjudian?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 7,
-    text: "Have you risked or lost significant relationships, educational or career opportunities because of gambling?",
+    text: "Apakah Anda pernah mempertaruhkan atau kehilangan hubungan penting, kesempatan pendidikan, atau karir karena berjudi?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   },
   {
     id: 8,
-    text: "Have you relied on others to provide money to relieve financial problems caused by gambling?",
+    text: "Apakah Anda pernah mengandalkan orang lain untuk memberikan uang guna mengatasi masalah keuangan yang disebabkan oleh perjudian?",
     options: [
-      { value: 0, label: "Never" },
-      { value: 1, label: "Rarely" },
-      { value: 2, label: "Sometimes" },
-      { value: 3, label: "Often" },
-      { value: 4, label: "Almost always" }
+      { value: 0, label: "Tidak pernah" },
+      { value: 1, label: "Jarang" },
+      { value: 2, label: "Kadang-kadang" },
+      { value: 3, label: "Sering" },
+      { value: 4, label: "Hampir selalu" }
     ]
   }
 ];
@@ -94,82 +94,82 @@ export const gamblingAssessmentQuestions: Question[] = [
 export const mentalHealthAssessmentQuestions: Question[] = [
   {
     id: 1,
-    text: "Over the past two weeks, how often have you felt nervous, anxious, or on edge?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda merasa gugup, cemas, atau tegang?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 2,
-    text: "Over the past two weeks, how often have you not been able to stop or control worrying?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda tidak dapat menghentikan atau mengendalikan rasa khawatir?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 3,
-    text: "Over the past two weeks, how often have you felt down, depressed, or hopeless?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda merasa sedih, tertekan, atau putus asa?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 4,
-    text: "Over the past two weeks, how often have you had little interest or pleasure in doing things?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda kurang berminat atau kurang menikmati dalam melakukan berbagai hal?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 5,
-    text: "Over the past two weeks, how often have you had trouble falling or staying asleep, or sleeping too much?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda mengalami kesulitan tidur, tetap tidur, atau tidur terlalu banyak?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 6,
-    text: "Over the past two weeks, how often have you felt tired or had little energy?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda merasa lelah atau kekurangan energi?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 7,
-    text: "Over the past two weeks, how often have you had poor appetite or overeating?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda kurang nafsu makan atau makan berlebihan?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   },
   {
     id: 8,
-    text: "Over the past two weeks, how often have you had trouble concentrating on things?",
+    text: "Selama dua minggu terakhir, seberapa sering Anda kesulitan berkonsentrasi pada berbagai hal?",
     options: [
-      { value: 0, label: "Not at all" },
-      { value: 1, label: "Several days" },
-      { value: 2, label: "More than half the days" },
-      { value: 3, label: "Nearly every day" }
+      { value: 0, label: "Tidak sama sekali" },
+      { value: 1, label: "Beberapa hari" },
+      { value: 2, label: "Lebih dari separuh waktu" },
+      { value: 3, label: "Hampir setiap hari" }
     ]
   }
 ];

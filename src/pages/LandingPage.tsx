@@ -23,8 +23,10 @@ const LandingPage: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <LinkButton 
                   to="/assessment" 
+                  variant="outline"
                   size="lg"
                   icon={<ArrowRight className="w-5 h-5" />}
+                  className="bg-primary-50 text-primary-600 border-primary-500 hover:bg-primary-500 hover:text-white hover:border-primary-500"
                 >
                   Mulai Assessment
                 </LinkButton>
@@ -33,6 +35,7 @@ const LandingPage: React.FC = () => {
                   variant="outline"
                   size="lg"
                   icon={<MessageCircle className="w-5 h-5" />}
+                  className="bg-primary-50 text-primary-600 border-primary-500 hover:bg-primary-500 hover:text-white hover:border-primary-500"
                 >
                   Chat dengan JiwaBot
                 </LinkButton>
