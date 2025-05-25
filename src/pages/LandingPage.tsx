@@ -110,7 +110,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Mengapa Memilih Jaga Jiwa?</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Platform yang dibuat khusus untuk Gen Z Indonesia dengan fokus pada masalah kecanduan judi online dan kesehatan mental.
+              Platform yang dibuat khusus untuk masyarakat di Indonesia dengan fokus pada masalah kecanduan judi online dan kesehatan mental.
             </p>
           </div>
 
