@@ -121,7 +121,7 @@ const AssessmentPage: React.FC = () => {
                   </p>
                   <Button
                     onClick={() => handleStartAssessment('mental-health')}
-                    variant="secondary"
+                    variant="primary"
                     fullWidth
                   >
                     Mulai Assessment

@@ -30,7 +30,7 @@ const LandingPage: React.FC = () => {
                 </LinkButton>
                 <LinkButton 
                   to="/chatbot" 
-                  variant="outline" 
+                  variant="outline"
                   size="lg"
                   icon={<MessageCircle className="w-5 h-5" />}
                 >
@@ -221,7 +221,7 @@ const LandingPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <LinkButton 
                 to="/assessment" 
-                variant="secondary"
+                variant="primary"
                 size="lg"
               >
                 Ambil Assessment

@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { TextArea } from '../components/ui/Input';
 import MoodSelector from '../components/mood/MoodSelector';
 import MoodChart from '../components/mood/MoodChart';
+import MoodCalendar from '../components/mood/MoodCalendar';
 import { MoodEntry } from '../types';
 import { saveMoodEntry, getMoodEntries } from '../utils/storage';
 
@@ -106,9 +107,10 @@ const MoodTrackerPage: React.FC = () => {
             </div>
           )}
           
-          {/* Mood Chart */}
-          <div className="mb-6">
+          {/* Mood Chart and Calendar */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
             <MoodChart entries={moodEntries} />
+            <MoodCalendar entries={moodEntries} />
           </div>
           
           {/* Mood History */}
