@@ -1,4 +1,4 @@
-export const initialBotMessage = "Halo! Saya JiwaBot, asisten kesehatan mental Anda. Saya di sini untuk membantu Anda memahami masalah perjudian online dan efeknya terhadap kesehatan mental. Apa yang ingin Anda bicarakan hari ini?";
+export const initialBotMessage = "Apa pun ceritamu, aku siap mendengarkan.";
 
 export const gamblingResponses = [
   {

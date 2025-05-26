@@ -106,7 +106,7 @@ const MoodTrackerPage: React.FC = () => {
             <Card className="mb-8">
               <CardBody>
                 <h2 className="text-lg font-medium text-gray-800 mb-4">
-                  {editingEntryTimestamp ? 'Edit Catatan Mood' : 'Bagaimana perasaan Anda hari ini?'}
+                  {editingEntryTimestamp ? 'Edit Catatan Mood' : 'Catat perasaanmu setiap hari dan kenali pola emosimu dari waktu ke waktu.'}
                 </h2>
                 <MoodSelector selected={selectedMood} onChange={setSelectedMood} />
                 

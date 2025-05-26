@@ -10,10 +10,9 @@ const EmergencyPage: React.FC = () => {
     <AppLayout>
       <div className="container py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Bantuan Darurat</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Butuh bantuan sekarang?</h1>
           <p className="text-gray-700 text-base leading-relaxed mb-6">
-            Jika Anda atau seseorang yang Anda kenal sedang mengalami krisis kesehatan mental,
-            hubungi layanan darurat berikut segera.
+            Kamu tidak sendiri. Bantuan darurat siap membantumu kapan pun.
           </p>
           
           {/* Emergency Alert */}

@@ -23,7 +23,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = false }
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Ketik pesan Anda di sini..."
+        placeholder="Tulis di sini kalau kamu mau cerita…"
         className="flex-grow rounded-full border border-gray-400 px-4 py-2 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition duration-200"
         disabled={disabled}
       />

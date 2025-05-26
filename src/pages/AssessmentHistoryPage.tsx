@@ -56,7 +56,7 @@ const AssessmentHistoryPage: React.FC = () => {
       <div className="container py-8">
         <div className="max-w-3xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">Riwayat Assessment</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Riwayat Tes Kesehatan Mental</h1>
             <LinkButton to="/assessment" variant="outline" icon={<ListChecks className="w-4 h-4 mr-1" />}>
               Mulai Assessment Baru
             </LinkButton>
@@ -65,7 +65,7 @@ const AssessmentHistoryPage: React.FC = () => {
           {results.length === 0 ? (
             <Card>
               <CardBody className="text-center py-12">
-                <p className="text-gray-500 text-lg mb-4">Anda belum memiliki riwayat assessment.</p>
+                <p className="text-gray-500 text-lg mb-4">Pantau hasil dan perkembangan kondisimu dari waktu ke waktu.</p>
                 <LinkButton to="/assessment" icon={<ArrowRight className="w-5 h-5" />}>
                   Ambil Assessment Pertama Anda
                 </LinkButton>

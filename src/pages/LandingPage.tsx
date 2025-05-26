@@ -13,12 +13,10 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-col-reverse md:flex-row items-center">
             <div className="md:w-1/2 text-center md:text-left mt-8 md:mt-0">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Jaga <span className="text-primary-600">Jiwa</span>mu, <br />
-                Jaga <span className="text-primary-600">Masa Depan</span>mu
+                Bersama Menjaga <span className="text-primary-600">Kesehatan Mentalmu</span>
               </h1>
               <p className="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
-                Platform dukungan kesehatan mental untuk membantu mendeteksi tanda awal kecanduan judi online
-                dan dampaknya terhadap kesehatan mental Anda.
+                Mulai dari tes awal hingga dukungan harian—kami siap menemani langkahmu.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <LinkButton 

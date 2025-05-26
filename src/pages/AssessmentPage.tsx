@@ -82,7 +82,7 @@ const AssessmentPage: React.FC = () => {
       <AppLayout>
         <div className="container py-8">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Self Assessment</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Kenali kondisimu lebih dalam lewat penilaian singkat ini.</h1>
             <p className="text-gray-600 mb-8 text-center">
               Ambil self-assessment untuk mengevaluasi kondisi Anda. Semua hasil bersifat pribadi
               dan hanya disimpan di perangkat Anda.
@@ -110,7 +110,7 @@ const AssessmentPage: React.FC = () => {
                     onClick={() => handleStartAssessment('gambling')}
                     fullWidth
                   >
-                    Mulai Assessment
+                    Mulai Penilaian
                   </Button>
                 </CardBody>
               </Card>
@@ -131,7 +131,7 @@ const AssessmentPage: React.FC = () => {
                     variant="primary"
                     fullWidth
                   >
-                    Mulai Assessment
+                    Mulai Penilaian
                   </Button>
                 </CardBody>
               </Card>
