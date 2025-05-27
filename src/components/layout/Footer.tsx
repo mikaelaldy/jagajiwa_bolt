@@ -18,10 +18,7 @@ const Footer: React.FC = () => {
               dan dampaknya terhadap kesehatan mental, khusus untuk anak muda Indonesia.
             </p>
             <div className="flex space-x-4">
-              <SocialLink href="#" icon={<Instagram className="w-5 h-5" />} label="Instagram" />
-              <SocialLink href="#" icon={<Twitter className="w-5 h-5" />} label="Twitter" />
-              <SocialLink href="#" icon={<Facebook className="w-5 h-5" />} label="Facebook" />
-              <SocialLink href="#" icon={<Mail className="w-5 h-5" />} label="Email" />
+              <SocialLink href="https://twitter.com/mikascend" icon={<Twitter className="w-5 h-5" />} label="Twitter" />
             </div>
           </div>
           
@@ -41,8 +38,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <FooterLink to="/about">Tentang Kami</FooterLink>
               <FooterLink to="/privacy">Kebijakan Privasi</FooterLink>
-              <FooterLink to="/terms">Syarat & Ketentuan</FooterLink>
-              <FooterLink to="/contact">Kontak</FooterLink>
+              <FooterLink to="https://twitter.com/mikascend">Kontak (@mikascend)</FooterLink>
             </ul>
           </div>
         </div>
@@ -52,9 +48,9 @@ const Footer: React.FC = () => {
             © {new Date().getFullYear()} Jaga Jiwa. Semua hak dilindungi.
           </p>
           <div className="flex items-center mt-4 md:mt-0">
-            <span className="text-gray-500 text-sm mr-1">Dibuat dengan</span>
+            <span className="text-gray-500 text-sm mr-1">Made with</span>
             <Heart className="w-4 h-4 text-error-500 mx-1" />
-            <span className="text-gray-500 text-sm">untuk kesehatan mental Indonesia</span>
+            <span className="text-gray-500 text-sm">by mikascend for better Indonesian mental health</span>
           </div>
         </div>
       </div>
@@ -87,6 +83,8 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => {
   return (
     <a 
       href={href} 
+      target="_blank"
+      rel="noopener noreferrer"
       className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition-colors"
       aria-label={label}
     >

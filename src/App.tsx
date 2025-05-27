@@ -7,6 +7,7 @@ import MoodTrackerPage from './pages/MoodTrackerPage';
 import EmergencyPage from './pages/EmergencyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AssessmentHistoryPage from './pages/AssessmentHistoryPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/chatbot" element={<ChatbotPage />} />
         <Route path="/mood-tracker" element={<MoodTrackerPage />} />
         <Route path="/emergency" element={<EmergencyPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
