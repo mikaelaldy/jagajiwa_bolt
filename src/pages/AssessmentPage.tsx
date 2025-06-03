@@ -15,6 +15,7 @@ const AssessmentPage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [result, setResult] = useState<AssessmentResult | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const questions = assessmentType === 'gambling' 
     ? gamblingAssessmentQuestions 
@@ -47,17 +48,32 @@ const AssessmentPage: React.FC = () => {
     }
   };
 
-  const calculateResult = () => {
-    let assessmentResult: AssessmentResult;
-    
-    if (assessmentType === 'gambling') {
-      assessmentResult = calculateGamblingResult(answers);
-    } else {
-      assessmentResult = calculateMentalHealthResult(answers);
+  const calculateResult = async () => {
+    setIsSubmitting(true);
+    try {
+      let assessmentResult: AssessmentResult;
+      
+      if (assessmentType === 'gambling') {
+        assessmentResult = calculateGamblingResult(answers);
+      } else {
+        assessmentResult = calculateMentalHealthResult(answers);
+      }
+      
+      await saveAssessmentResult(assessmentResult);
+      setResult(assessmentResult);
+    } catch (error) {
+      console.error('Error saving assessment result:', error);
+      // Still show result even if save failed
+      let assessmentResult: AssessmentResult;
+      if (assessmentType === 'gambling') {
+        assessmentResult = calculateGamblingResult(answers);
+      } else {
+        assessmentResult = calculateMentalHealthResult(answers);
+      }
+      setResult(assessmentResult);
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    saveAssessmentResult(assessmentResult);
-    setResult(assessmentResult);
   };
 
   const handleReset = () => {
@@ -84,8 +100,8 @@ const AssessmentPage: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Kenali kondisimu lebih dalam lewat penilaian singkat ini.</h1>
             <p className="text-gray-600 mb-8 text-center">
-              Ambil self-assessment untuk mengevaluasi kondisi Anda. Semua hasil bersifat pribadi
-              dan hanya disimpan di perangkat Anda.
+              Ambil self-assessment untuk mengevaluasi kondisi Anda. Semua hasil tersimpan aman di cloud
+              dan dapat diakses dari perangkat manapun.
             </p>
             
             <div className="text-center mb-8">
@@ -173,15 +189,17 @@ const AssessmentPage: React.FC = () => {
             <Button
               variant="outline"
               onClick={handlePrevious}
-              disabled={currentQuestionIndex === 0}
+              disabled={currentQuestionIndex === 0 || isSubmitting}
             >
               Sebelumnya
             </Button>
             <Button
               onClick={handleNext}
-              disabled={answers[currentQuestionIndex] === undefined}
+              disabled={answers[currentQuestionIndex] === undefined || isSubmitting}
             >
-              {currentQuestionIndex < questions.length - 1 ? 'Selanjutnya' : 'Lihat Hasil'}
+              {isSubmitting 
+                ? 'Menyimpan...' 
+                : currentQuestionIndex < questions.length - 1 ? 'Selanjutnya' : 'Lihat Hasil'}
             </Button>
           </div>
         </div>

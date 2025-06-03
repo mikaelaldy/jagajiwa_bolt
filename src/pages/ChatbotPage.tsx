@@ -3,7 +3,7 @@ import AppLayout from '../components/layout/AppLayout';
 import ChatMessage from '../components/chatbot/ChatMessage';
 import ChatInput from '../components/chatbot/ChatInput';
 import { Button } from '../components/ui/Button';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Loader2 } from 'lucide-react';
 import { initialBotMessage } from '../data/chatbotResponses';
 import { generateBotResponse, createUserMessage, createBotMessage } from '../utils/chatbot';
 import { saveMessage, getMessages, clearChatHistory } from '../utils/storage';
@@ -12,20 +12,12 @@ import { Message } from '../types';
 const ChatbotPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isClearing, setIsClearing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load existing messages or start a new conversation
-    const existingMessages = getMessages();
-    
-    if (existingMessages.length === 0) {
-      // Start with an initial bot message
-      const initialMessage = createBotMessage(initialBotMessage);
-      saveMessage(initialMessage);
-      setMessages([initialMessage]);
-    } else {
-      setMessages(existingMessages);
-    }
+    loadMessages();
   }, []);
 
   useEffect(() => {
@@ -33,37 +25,97 @@ const ChatbotPage: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  const loadMessages = async () => {
+    try {
+      setLoading(true);
+      const existingMessages = await getMessages();
+      
+      if (existingMessages.length === 0) {
+        // Start with an initial bot message
+        const initialMessage = createBotMessage(initialBotMessage);
+        await saveMessage(initialMessage);
+        setMessages([initialMessage]);
+      } else {
+        setMessages(existingMessages);
+      }
+    } catch (error) {
+      console.error('Error loading messages:', error);
+      // Fallback to initial message
+      const initialMessage = createBotMessage(initialBotMessage);
+      setMessages([initialMessage]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSendMessage = (text: string) => {
-    // Create and save user message
-    const userMessage = createUserMessage(text);
-    saveMessage(userMessage);
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-    
-    // Simulate bot typing
-    setIsTyping(true);
-    
-    // Generate bot response with a delay to simulate thinking
-    setTimeout(() => {
-      const botResponse = generateBotResponse(text);
-      const botMessage = createBotMessage(botResponse);
-      saveMessage(botMessage);
-      setMessages(prevMessages => [...prevMessages, botMessage]);
-      setIsTyping(false);
-    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
-  };
-
-  const handleClearChat = () => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus semua riwayat chat?')) {
-      clearChatHistory();
-      const initialMessage = createBotMessage(initialBotMessage);
-      saveMessage(initialMessage);
-      setMessages([initialMessage]);
+  const handleSendMessage = async (text: string) => {
+    try {
+      // Create and save user message
+      const userMessage = createUserMessage(text);
+      await saveMessage(userMessage);
+      setMessages(prevMessages => [...prevMessages, userMessage]);
+      
+      // Simulate bot typing
+      setIsTyping(true);
+      
+      // Generate bot response with a delay to simulate thinking
+      setTimeout(async () => {
+        try {
+          const botResponse = generateBotResponse(text);
+          const botMessage = createBotMessage(botResponse);
+          await saveMessage(botMessage);
+          setMessages(prevMessages => [...prevMessages, botMessage]);
+        } catch (error) {
+          console.error('Error saving bot message:', error);
+          // Still show the message even if save failed
+          const botResponse = generateBotResponse(text);
+          const botMessage = createBotMessage(botResponse);
+          setMessages(prevMessages => [...prevMessages, botMessage]);
+        } finally {
+          setIsTyping(false);
+        }
+      }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Gagal mengirim pesan. Silakan coba lagi.');
     }
   };
+
+  const handleClearChat = async () => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus semua riwayat chat?')) {
+      try {
+        setIsClearing(true);
+        await clearChatHistory();
+        const initialMessage = createBotMessage(initialBotMessage);
+        await saveMessage(initialMessage);
+        setMessages([initialMessage]);
+      } catch (error) {
+        console.error('Error clearing chat:', error);
+        alert('Gagal menghapus riwayat chat. Silakan coba lagi.');
+      } finally {
+        setIsClearing(false);
+      }
+    }
+  };
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="container py-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+              <span className="ml-2 text-gray-600">Memuat percakapan...</span>
+            </div>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout>
@@ -76,9 +128,10 @@ const ChatbotPage: React.FC = () => {
                 variant="outline" 
                 size="sm"
                 onClick={handleClearChat}
-                icon={<Trash2 className="w-4 h-4" />}
+                icon={isClearing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                disabled={isClearing}
               >
-                Bersihkan Chat
+                {isClearing ? 'Menghapus...' : 'Bersihkan Chat'}
               </Button>
             )}
           </div>

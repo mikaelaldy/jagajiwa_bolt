@@ -2,6 +2,10 @@
 
 Jaga Jiwa adalah sebuah platform web yang dirancang untuk memberikan dukungan kesehatan mental, dengan fokus khusus pada deteksi dini dan dampak kecanduan judi online pada anak muda di Indonesia. Aplikasi ini menyediakan serangkaian alat bantu mandiri, informasi edukatif, dan akses ke sumber daya darurat.
 
+## 🌐 Demo Website
+
+**Live Demo:** [https://jagajiwa.mikascend.xyz/](https://jagajiwa.mikascend.xyz/)
+
 ## Fitur Utama
 
 - **Self Assessment:** Pengguna dapat mengambil kuis interaktif untuk mengevaluasi risiko kecanduan judi online dan tingkat kesehatan mental umum (kecemasan, depresi).
@@ -31,9 +35,9 @@ Pastikan Anda memiliki Node.js dan npm (atau Yarn/pnpm) terinstal di sistem Anda
 
 ## Instalasi
 
-1.  **Clone repository (jika ada):**
+1.  **Clone repository:**
     ```bash
-    git clone <URL_REPOSITORY_ANDA>
+    git clone https://github.com/yourusername/jaga-jiwa.git
     cd jaga-jiwa
     ```
 
@@ -66,46 +70,80 @@ Dalam package.json, Anda akan menemukan beberapa skrip:
 -   `npm run preview`: Menjalankan server lokal untuk melihat build production dari folder `dist`.
 -   `node screenshots.mjs`: (Memerlukan server dev berjalan) Mengambil screenshot dari halaman-halaman utama aplikasi menggunakan Playwright dan menyimpannya di folder `screenshots`.
 
-## Struktur Proyek (Ringkasan)
+## Struktur Proyek
 
 ```
 /public
   /logo.svg
 /src
   /components
-    /assessment
-    /chatbot
-    /emergency
-    /layout       (Header, Footer, AppLayout)
-    /mood         (MoodChart, MoodSelector, MoodCalendar)
-    /ui           (Button, Card, Input, Logo)
-  /data           (assessmentQuestions, chatbotResponses, emergencyContacts)
-  /pages          (LandingPage, AssessmentPage, ChatbotPage, dll.)
-  /types          (Definisi tipe TypeScript)
-  /utils          (Fungsi helper: assessment, chatbot, storage)
-  App.tsx         (Konfigurasi routing utama)
-  main.tsx        (Titik masuk aplikasi React)
-  index.css       (Styling global Tailwind)
-.bolt             (Konfigurasi internal Bolt)
+    /assessment      (QuestionCard, ResultCard)
+    /chatbot        (ChatInput, ChatMessage)
+    /emergency      (ContactCard)
+    /layout         (Header, Footer, AppLayout)
+    /mood           (MoodChart, MoodSelector, MoodCalendar)
+    /ui             (Button, Card, Input, Logo)
+  /data             (assessmentQuestions, chatbotResponses, emergencyContacts)
+  /pages            (LandingPage, AssessmentPage, ChatbotPage, MoodTrackerPage, EmergencyPage, AssessmentHistoryPage, PrivacyPolicyPage, NotFoundPage)
+  /types            (Definisi tipe TypeScript)
+  /utils            (Fungsi helper: assessment, chatbot, storage)
+  App.tsx           (Konfigurasi routing utama)
+  main.tsx          (Titik masuk aplikasi React)
+  index.css         (Styling global Tailwind)
+.bolt               (Konfigurasi internal Bolt)
 eslint.config.js
 index.html
 package.json
 postcss.config.js
 README.md
-screenshots.mjs   (Skrip Playwright untuk screenshot)
+screenshots.mjs     (Skrip Playwright untuk screenshot)
 tailwind.config.js
 tsconfig.json
 ... (file konfigurasi lainnya)
 ```
 
+## Fitur Detail
+
+### 🧠 Self Assessment
+- **Gambling Assessment:** 8 pertanyaan untuk mengevaluasi risiko kecanduan judi online
+- **Mental Health Assessment:** 8 pertanyaan untuk mengevaluasi tingkat kecemasan dan depresi
+- **Risk Scoring:** Sistem penilaian tiga tingkat (rendah, sedang, tinggi)
+- **Personalized Recommendations:** Rekomendasi yang disesuaikan berdasarkan hasil
+
+### 🤖 JiwaBot
+- **Intelligent Response System:** AI yang dapat mengenali kata kunci terkait perjudian dan kesehatan mental
+- **Empathetic Conversations:** Respon yang empatik dan mendukung
+- **Crisis Detection:** Mampu mendeteksi situasi darurat dan memberikan panduan bantuan
+
+### 📊 Mood Tracker
+- **Daily Mood Logging:** Pencatatan mood harian dengan 5 tingkatan
+- **Visual Analytics:** Grafik garis untuk melihat pola mood dari waktu ke waktu
+- **Calendar View:** Kalender visual dengan indikator warna mood
+- **Notes & Context:** Catatan opsional untuk memberikan konteks pada setiap entri mood
+- **Edit & Delete:** Kemampuan untuk mengedit atau menghapus entri mood
+
+### 🆘 Emergency Support
+- **Crisis Hotlines:** Daftar lengkap kontak darurat nasional
+- **Professional Resources:** Informasi organisasi kesehatan mental di Indonesia
+- **Crisis Management Guide:** Panduan langkah-demi-langkah untuk situasi krisis
+- **Supporting Others:** Informasi untuk membantu teman yang sedang krisis
+
+### 🔒 Privacy & Security
+- **No Registration Required:** Tidak perlu membuat akun atau login
+- **Local Storage Only:** Semua data disimpan hanya di perangkat pengguna
+- **No Data Tracking:** Tidak ada pelacakan atau pengumpulan data pribadi
+- **Complete Anonymity:** Penggunaan sepenuhnya anonim
+
 ## Kontribusi
 
-Saat ini, kontribusi dari pihak luar belum dibuka secara formal. Namun, jika Anda memiliki saran atau menemukan bug, silakan buat *issue* di repository GitHub proyek (jika tersedia).
+Saat ini, kontribusi dari pihak luar belum dibuka secara formal. Namun, jika Anda memiliki saran atau menemukan bug, silakan buat *issue* di repository GitHub proyek.
 
 ## Lisensi
 
-Proyek ini dilisensikan di bawah Lisensi MIT (Asumsi, bisa diganti jika perlu).
+Proyek ini dilisensikan di bawah Lisensi MIT.
 
 ---
 
 *Dibuat dengan ❤️ untuk kesehatan mental Indonesia.* 
+
+**Creator:** [@mikascend](https://twitter.com/mikascend) 

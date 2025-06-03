@@ -8,7 +8,7 @@ import MoodChart from '../components/mood/MoodChart';
 import MoodCalendar from '../components/mood/MoodCalendar';
 import { MoodEntry } from '../types';
 import { saveMoodEntry, getMoodEntries, updateMoodEntry, deleteMoodEntry } from '../utils/storage';
-import { Edit3, Trash2, XCircle } from 'lucide-react';
+import { Edit3, Trash2, XCircle, Loader2 } from 'lucide-react';
 
 const MoodTrackerPage: React.FC = () => {
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
@@ -18,15 +18,24 @@ const MoodTrackerPage: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [editingEntryTimestamp, setEditingEntryTimestamp] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
   const moodFormRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadMoodEntries();
   }, []);
 
-  const loadMoodEntries = () => {
-    const entries = getMoodEntries();
-    setMoodEntries(entries);
+  const loadMoodEntries = async () => {
+    try {
+      setLoading(true);
+      const entries = await getMoodEntries();
+      setMoodEntries(entries);
+    } catch (error) {
+      console.error('Error loading mood entries:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -47,54 +56,83 @@ const MoodTrackerPage: React.FC = () => {
     moodFormRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleDeleteEntry = (timestamp: number) => {
+  const handleDeleteEntry = async (timestamp: number) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus catatan mood ini?')) {
-      deleteMoodEntry(timestamp);
-      loadMoodEntries();
-      setSuccessMessage('Mood berhasil dihapus!');
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
-      if (editingEntryTimestamp === timestamp) {
-        resetForm();
+      try {
+        setDeletingId(timestamp);
+        await deleteMoodEntry(timestamp);
+        await loadMoodEntries();
+        setSuccessMessage('Mood berhasil dihapus!');
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+        if (editingEntryTimestamp === timestamp) {
+          resetForm();
+        }
+      } catch (error) {
+        console.error('Error deleting mood entry:', error);
+        alert('Gagal menghapus mood. Silakan coba lagi.');
+      } finally {
+        setDeletingId(null);
       }
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedMood) return;
     
     setIsSubmitting(true);
     
-    if (editingEntryTimestamp) {
-      const updatedEntry: MoodEntry = {
-        mood: selectedMood,
-        notes: notes,
-        timestamp: editingEntryTimestamp,
-      };
-      updateMoodEntry(updatedEntry);
-      setSuccessMessage('Mood berhasil diperbarui!');
-    } else {
-      const newEntry: MoodEntry = {
-        mood: selectedMood,
-        notes: notes,
-        timestamp: Date.now(),
-      };
-      saveMoodEntry(newEntry);
-      setSuccessMessage('Mood berhasil disimpan!');
+    try {
+      if (editingEntryTimestamp) {
+        const updatedEntry: MoodEntry = {
+          mood: selectedMood,
+          notes: notes,
+          timestamp: editingEntryTimestamp,
+        };
+        await updateMoodEntry(updatedEntry);
+        setSuccessMessage('Mood berhasil diperbarui!');
+      } else {
+        const newEntry: MoodEntry = {
+          mood: selectedMood,
+          notes: notes,
+          timestamp: Date.now(),
+        };
+        await saveMoodEntry(newEntry);
+        setSuccessMessage('Mood berhasil disimpan!');
+      }
+      
+      await loadMoodEntries();
+      resetForm();
+          
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error saving mood entry:', error);
+      alert('Gagal menyimpan mood. Silakan coba lagi.');
+      setIsSubmitting(false);
     }
-    
-    loadMoodEntries();
-    resetForm();
-        
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 3000);
   };
 
   const handleCancelEdit = () => {
     resetForm();
   };
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="container py-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+              <span className="ml-2 text-gray-600">Memuat data mood...</span>
+            </div>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout>
@@ -128,6 +166,7 @@ const MoodTrackerPage: React.FC = () => {
                     variant="outline"
                     onClick={handleCancelEdit}
                     icon={<XCircle className="w-4 h-4"/>}
+                    disabled={isSubmitting}
                   >
                     Batal Edit
                   </Button>
@@ -135,6 +174,7 @@ const MoodTrackerPage: React.FC = () => {
                 <Button
                   onClick={handleSubmit}
                   disabled={!selectedMood || isSubmitting}
+                  icon={isSubmitting ? <Loader2 className="w-4 h-4 animate-spin"/> : undefined}
                 >
                   {isSubmitting 
                     ? (editingEntryTimestamp ? 'Memperbarui...' : 'Menyimpan...') 
@@ -182,6 +222,7 @@ const MoodTrackerPage: React.FC = () => {
                     entry={entry} 
                     onEdit={() => handleEditEntry(entry)}
                     onDelete={() => handleDeleteEntry(entry.timestamp)}
+                    isDeleting={deletingId === entry.timestamp}
                   />
                 ))}
             </div>
@@ -196,9 +237,10 @@ interface MoodHistoryItemProps {
   entry: MoodEntry;
   onEdit: () => void;
   onDelete: () => void;
+  isDeleting: boolean;
 }
 
-const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry, onEdit, onDelete }) => {
+const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry, onEdit, onDelete, isDeleting }) => {
   const moodLabels: Record<string, string> = {
     great: 'Sangat Baik',
     good: 'Baik',
@@ -241,11 +283,25 @@ const MoodHistoryItem: React.FC<MoodHistoryItemProps> = ({ entry, onEdit, onDele
             </div>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-            <Button variant="ghost" size="sm" onClick={onEdit} icon={<Edit3 className="w-4 h-4"/>} className="text-primary-600 hover:bg-primary-50">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={onEdit} 
+              icon={<Edit3 className="w-4 h-4"/>} 
+              className="text-primary-600 hover:bg-primary-50"
+              disabled={isDeleting}
+            >
               Edit
             </Button>
-            <Button variant="ghost" size="sm" onClick={onDelete} icon={<Trash2 className="w-4 h-4"/>} className="text-error-600 hover:bg-error-50">
-              Hapus
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={onDelete} 
+              icon={isDeleting ? <Loader2 className="w-4 h-4 animate-spin"/> : <Trash2 className="w-4 h-4"/>} 
+              className="text-error-600 hover:bg-error-50"
+              disabled={isDeleting}
+            >
+              {isDeleting ? 'Menghapus...' : 'Hapus'}
             </Button>
           </div>
         </div>

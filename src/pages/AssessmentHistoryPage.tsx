@@ -5,19 +5,41 @@ import { Card, CardBody, CardHeader, CardFooter } from '../components/ui/Card';
 import { Button, LinkButton } from '../components/ui/Button';
 import { getAssessmentResults, deleteAssessmentResult } from '../utils/storage';
 import { AssessmentResult } from '../types';
-import { ListChecks, ArrowRight, Trash2 } from 'lucide-react';
+import { ListChecks, ArrowRight, Trash2, Loader2 } from 'lucide-react';
 
 const AssessmentHistoryPage: React.FC = () => {
   const [results, setResults] = useState<AssessmentResult[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    setResults(getAssessmentResults().sort((a, b) => b.timestamp - a.timestamp)); // Show newest first
+    loadResults();
   }, []);
 
-  const handleDelete = (timestamp: number) => {
+  const loadResults = async () => {
+    try {
+      setLoading(true);
+      const fetchedResults = await getAssessmentResults();
+      setResults(fetchedResults.sort((a, b) => b.timestamp - a.timestamp)); // Show newest first
+    } catch (error) {
+      console.error('Error loading assessment results:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (timestamp: number) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus hasil assessment ini?')) {
-      deleteAssessmentResult(timestamp);
-      setResults(prevResults => prevResults.filter(result => result.timestamp !== timestamp));
+      try {
+        setDeletingId(timestamp);
+        await deleteAssessmentResult(timestamp);
+        setResults(prevResults => prevResults.filter(result => result.timestamp !== timestamp));
+      } catch (error) {
+        console.error('Error deleting assessment result:', error);
+        alert('Gagal menghapus assessment. Silakan coba lagi.');
+      } finally {
+        setDeletingId(null);
+      }
     }
   };
 
@@ -43,13 +65,28 @@ const AssessmentHistoryPage: React.FC = () => {
     }
   };
 
- const getCategoryLabel = (category: 'gambling' | 'mental-health') => {
+  const getCategoryLabel = (category: 'gambling' | 'mental-health') => {
     switch (category) {
       case 'gambling': return 'Perjudian Online';
       case 'mental-health': return 'Kesehatan Mental';
       default: return '';
     }
   };
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="container py-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary-500" />
+              <span className="ml-2 text-gray-600">Memuat riwayat assessment...</span>
+            </div>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout>
@@ -105,9 +142,13 @@ const AssessmentHistoryPage: React.FC = () => {
                       size="sm"
                       onClick={() => handleDelete(result.timestamp)}
                       className="text-error-600 hover:bg-error-50 hover:text-error-700"
-                      icon={<Trash2 className="w-4 h-4"/>}
+                      disabled={deletingId === result.timestamp}
+                      icon={deletingId === result.timestamp ? 
+                        <Loader2 className="w-4 h-4 animate-spin"/> : 
+                        <Trash2 className="w-4 h-4"/>
+                      }
                     >
-                      Hapus
+                      {deletingId === result.timestamp ? 'Menghapus...' : 'Hapus'}
                     </Button>
                   </CardFooter>
                 </Card>
