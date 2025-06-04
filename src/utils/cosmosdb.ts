@@ -1,13 +1,14 @@
 import { CosmosClient, Container, Database } from '@azure/cosmos';
 
 // Use the correct environment variable names from README
-const endpoint = import.meta.env.VITE_AZURE_COSMOS_ENDPOINT;
-const key = import.meta.env.VITE_AZURE_COSMOS_KEY;
-const databaseId = import.meta.env.VITE_AZURE_COSMOS_DATABASE_NAME || 'jagajiwa';
+const endpoint = import.meta.env.VITE_COSMOS_DB_ENDPOINT;
+const key = import.meta.env.VITE_COSMOS_DB_KEY;
+const databaseId = import.meta.env.VITE_COSMOS_DB_DATABASE_ID || 'jagajiwa';
 
 console.log('🔍 Cosmos DB Configuration Debug:');
-console.log('Endpoint:', endpoint ? 'Set' : 'Not set');
+console.log('Endpoint:', endpoint);
 console.log('Key present:', !!key);
+console.log('Key length:', key ? key.length : 0);
 console.log('Database ID:', databaseId);
 
 // Check if Cosmos DB is properly configured
@@ -15,10 +16,7 @@ const isCosmosDBConfigured = !!(endpoint && key);
 
 if (!isCosmosDBConfigured) {
   console.warn('❌ Cosmos DB not configured, using localStorage fallback');
-  console.warn('Missing environment variables:', 
-    !endpoint ? 'VITE_AZURE_COSMOS_ENDPOINT' : '', 
-    !key ? 'VITE_AZURE_COSMOS_KEY' : ''
-  );
+  console.warn('Missing:', !endpoint ? 'ENDPOINT' : '', !key ? 'KEY' : '');
 } else {
   console.log('✅ Cosmos DB configured');
 }
@@ -40,9 +38,15 @@ export const getDatabase = async (): Promise<Database | null> => {
     });
     console.log('✅ Database operation successful');
     return database;
-  } catch (error: unknown) {
+  } catch (error) {
     console.error('❌ Database operation failed:');
-    console.error('Error:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error status:', error.code);
+    if (error.body) {
+      console.error('Error body:', error.body);
+    }
+    console.error('Full error object:', error);
     return null;
   }
 };
@@ -68,9 +72,15 @@ export const getContainer = async (containerId: string): Promise<Container | nul
     });
     console.log('✅ Container operation successful:', containerId);
     return container;
-  } catch (error: unknown) {
+  } catch (error) {
     console.error('❌ Container operation failed for:', containerId);
-    console.error('Error:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error status:', error.code);
+    if (error.body) {
+      console.error('Error body:', error.body);
+    }
+    console.error('Full error object:', error);
     return null;
   }
 };
