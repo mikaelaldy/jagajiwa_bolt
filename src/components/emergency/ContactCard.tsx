@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmergencyContact } from '../../types';
 import { Card, CardBody } from '../ui/Card';
-import { Phone, Globe, Clock } from 'lucide-react';
+import { Phone, Globe, Clock, DollarSign } from 'lucide-react';
 
 interface ContactCardProps {
   contact: EmergencyContact;
@@ -34,7 +34,7 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
                 rel="noopener noreferrer" 
                 className="text-primary-600 hover:underline"
               >
-                Website
+                Situs Web
               </a>
             </div>
           )}
@@ -43,6 +43,13 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact }) => {
             <div className="flex items-center">
               <Clock className="w-4 h-4 text-primary-500 mr-2" />
               <span className="text-gray-600">{contact.hours}</span>
+            </div>
+          )}
+          
+          {contact.serviceFee && (
+            <div className="flex items-center">
+              <DollarSign className="w-4 h-4 text-primary-500 mr-2" />
+              <span className="text-gray-500 text-sm">{contact.serviceFee}</span>
             </div>
           )}
         </div>

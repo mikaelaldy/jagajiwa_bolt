@@ -34,4 +34,5 @@ export interface EmergencyContact {
   phone: string;
   website?: string;
   hours?: string;
+  serviceFee?: 'Gratis' | 'Berbayar' | 'Informasi tidak tersedia';
 }

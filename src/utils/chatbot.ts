@@ -1,6 +1,19 @@
 import { gamblingResponses, mentalHealthResponses, fallbackResponses } from '../data/chatbotResponses';
 import { Message } from '../types';
-import { generateAzureOpenAIResponse, isAzureOpenAIAvailable } from '../services/azureOpenAI';
+import { 
+  generateAzureOpenAIResponse, 
+  isAzureOpenAIAvailable 
+} from '../services/azureOpenAI';
+
+// Get user ID for assistant conversations
+const getUserId = (): string => {
+  let userId = localStorage.getItem('jagajiwa-user-id');
+  if (!userId) {
+    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('jagajiwa-user-id', userId);
+  }
+  return userId;
+};
 
 // Enhanced bot response generation with Azure OpenAI
 export const generateBotResponse = async (
@@ -70,4 +83,36 @@ export const createBotMessage = (text: string): Message => {
     sender: 'bot',
     timestamp: Date.now()
   };
+};
+
+// Add streaming support to your chatbot
+
+export const generateBotResponseStreaming = async (
+  userMessage: string,
+  conversationHistory: Message[],
+  onChunk: (chunk: string) => void
+): Promise<string> => {
+  if (isAzureOpenAIAvailable()) {
+    try {
+      const openAIHistory = conversationHistory
+        ?.slice(-6)
+        ?.map(msg => ({
+          role: msg.sender === 'user' ? 'user' as const : 'assistant' as const,
+          content: msg.text
+        })) || [];
+
+      const response = await generateStreamingResponse(userMessage, openAIHistory, onChunk);
+      console.log('✅ Used Azure OpenAI streaming for response');
+      return response;
+    } catch (error) {
+      console.warn('⚠️ Azure OpenAI streaming failed, falling back to regular response:', error);
+      // Fall back to regular response
+      return generateBotResponse(userMessage, conversationHistory);
+    }
+  }
+
+  // Fallback to keyword-based responses
+  const response = generateKeywordBasedResponse(userMessage);
+  onChunk(response); // Simulate streaming for consistency
+  return response;
 };
