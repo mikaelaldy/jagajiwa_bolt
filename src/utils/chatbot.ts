@@ -5,7 +5,7 @@ import {
   isAzureOpenAIAvailable 
 } from '../services/azureOpenAI';
 
-// Get user ID for assistant conversations
+// Get user ID for conversations
 const getUserId = (): string => {
   let userId = localStorage.getItem('jagajiwa-user-id');
   if (!userId) {
@@ -69,7 +69,7 @@ export const generateKeywordBasedResponse = (userMessage: string): string => {
 
 export const createUserMessage = (text: string): Message => {
   return {
-    id: Date.now().toString(),
+    id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     text,
     sender: 'user',
     timestamp: Date.now()
@@ -78,7 +78,7 @@ export const createUserMessage = (text: string): Message => {
 
 export const createBotMessage = (text: string): Message => {
   return {
-    id: Date.now().toString(),
+    id: `bot_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     text,
     sender: 'bot',
     timestamp: Date.now()
