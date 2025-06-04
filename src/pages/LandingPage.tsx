@@ -95,106 +95,107 @@ const LandingPage: React.FC = () => {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Mengapa Memilih Jaga Jiwa?</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Platform yang dibuat khusus untuk masyarakat di Indonesia dengan fokus pada masalah kecanduan judi online dan kesehatan mental. Tanpa Login, full anonymous.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex flex-col h-full">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  Didesain untuk Generasi Z
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Antarmuka yang modern, bahasa yang relevan, dan pendekatan yang sesuai dengan gaya hidup digital anak muda Indonesia.
-                </p>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Bahasa yang inklusif dan sesuai dengan Gen Z</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Kemudahan akses melalui smartphone</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Tampilan visual yang menarik dan tidak membosankan</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex flex-col h-full">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  Privasi dan Anonimitas
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Kami menjaga privasi Anda dengan tidak memerlukan login dan menyimpan data hanya di perangkat lokal Anda.
-                </p>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Tidak perlu mendaftar atau membuat akun</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Data disimpan hanya di perangkat Anda</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
-                    </div>
-                    <span className="text-gray-700">Bebas menggunakan layanan tanpa rasa khawatir</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial Section */}
-      <section className="py-20">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Pengalaman Pengguna</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Ini adalah beberapa pengalaman orang yang telah menggunakan Jaga Jiwa dalam perjalanan kesehatan mental mereka.
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              Platform yang dirancang khusus untuk masyarakat Indonesia, dengan fokus pada isu kesehatan mental dan kecanduan judi online. Bisa digunakan tanpa akun, sepenuhnya anonim, dan mudah diakses siapa saja.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <TestimonialCard
-              quote="Jaga Jiwa membantu saya menyadari bahwa kebiasaan gaming dan taruhan online saya sudah mulai lepas kendali. Assessment dan chatbot-nya sangat membantu."
-              author="Andi, 22"
-              location="Jakarta"
-              image="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
-            />
-            <TestimonialCard
-              quote="Awalnya saya skeptis, tapi fitur mood tracker benar-benar membantu saya melihat pola emosi yang berhubungan dengan kecanduan judi online saya."
-              author="Dina, 19"
-              location="Bandung"
-              image="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
-            />
-            <TestimonialCard
-              quote="Saya merasa nyaman berbagi masalah dengan JiwaBot karena tidak perlu khawatir dihakimi. Responnya sangat manusiawi dan membantu."
-              author="Budi, 24"
-              location="Surabaya"
-              image="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
-            />
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+              <div className="flex flex-col h-full">
+                <div className="text-4xl mb-4">🎯</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  Akses Mudah dan Ramah Pengguna
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Dirancang agar nyaman digunakan oleh siapa pun, mulai dari anak muda hingga orang tua, tanpa perlu pengalaman teknis.
+                </p>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Antarmuka yang sederhana dan mudah dipahami</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Bisa diakses langsung lewat smartphone atau laptop</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Tampilan bersih dan tidak membingungkan</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+              <div className="flex flex-col h-full">
+                <div className="text-4xl mb-4">🛡️</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  Privasi dan Anonimitas Dijaga Penuh
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Kami mengutamakan kenyamanan dan keamanan Anda. Tidak perlu membuat akun dan tidak ada data pribadi yang disimpan di server kami.
+                </p>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Tidak perlu login atau mendaftar</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Data hanya tersimpan di perangkat Anda</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Gunakan layanan ini tanpa rasa khawatir atau takut dilacak</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+              <div className="flex flex-col h-full">
+                <div className="text-4xl mb-4">👥</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                  Bahasa yang Inklusif dan Bersahabat
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Kami menggunakan pendekatan yang manusiawi dan bahasa yang bisa dimengerti semua kalangan, agar setiap orang merasa diterima dan dihargai.
+                </p>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Bahasa yang empatik dan mudah dicerna</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Tidak menghakimi dan terbuka untuk semua latar belakang</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 rounded-full bg-primary-100 flex items-center justify-center mr-2">
+                      <div className="h-2 w-2 rounded-full bg-primary-500"></div>
+                    </div>
+                    <span className="text-gray-700">Cocok untuk siapa saja yang sedang ingin memahami atau menjaga kesehatan mentalnya</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -257,39 +258,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
         >
           Pelajari lebih lanjut <ArrowRight className="w-4 h-4 ml-1" />
         </LinkButton>
-      </CardBody>
-    </Card>
-  );
-};
-
-interface TestimonialCardProps {
-  quote: string;
-  author: string;
-  location: string;
-  image: string;
-}
-
-const TestimonialCard: React.FC<TestimonialCardProps> = ({
-  quote,
-  author,
-  location,
-  image,
-}) => {
-  return (
-    <Card>
-      <CardBody>
-        <div className="flex items-center mb-4">
-          <img
-            src={image}
-            alt={author}
-            className="w-12 h-12 rounded-full object-cover mr-3"
-          />
-          <div>
-            <h4 className="font-medium text-gray-900">{author}</h4>
-            <p className="text-sm text-gray-500">{location}</p>
-          </div>
-        </div>
-        <p className="text-gray-700 italic">"{quote}"</p>
       </CardBody>
     </Card>
   );
