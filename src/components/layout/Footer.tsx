@@ -36,7 +36,6 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-heading font-semibold text-gray-900 mb-4">Informasi</h3>
             <ul className="space-y-2">
-              <FooterLink to="/about">Tentang Kami</FooterLink>
               <FooterLink to="/privacy">Kebijakan Privasi</FooterLink>
               <FooterLink to="https://twitter.com/mikascend">Kontak (@mikascend)</FooterLink>
             </ul>

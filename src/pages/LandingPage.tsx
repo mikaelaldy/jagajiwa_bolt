@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, MessageCircle, Users, Activity, Brain, BookOpen, LifeBuoy } from 'lucide-react';
+import { ArrowRight, MessageCircle, Users, Activity, Brain, BookOpen, LifeBuoy, MessageSquare, ClipboardList, Calendar } from 'lucide-react';
 import { LinkButton } from '../components/ui/Button';
 import { Card, CardBody } from '../components/ui/Card';
 import AppLayout from '../components/layout/AppLayout';
