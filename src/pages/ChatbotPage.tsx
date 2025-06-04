@@ -62,26 +62,27 @@ const ChatbotPage: React.FC = () => {
       // Simulate bot typing
       setIsTyping(true);
       
-      // Generate bot response with a delay to simulate thinking
-      setTimeout(async () => {
-        try {
-          const botResponse = generateBotResponse(text);
-          const botMessage = createBotMessage(botResponse);
-          await saveMessage(botMessage);
-          setMessages(prevMessages => [...prevMessages, botMessage]);
-        } catch (error) {
-          console.error('Error saving bot message:', error);
-          // Still show the message even if save failed
-          const botResponse = generateBotResponse(text);
-          const botMessage = createBotMessage(botResponse);
-          setMessages(prevMessages => [...prevMessages, botMessage]);
-        } finally {
-          setIsTyping(false);
-        }
-      }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+      // Generate bot response (now async with Azure OpenAI)
+      try {
+        const currentMessages = [...messages, userMessage];
+        const botResponse = await generateBotResponse(text, currentMessages);
+        const botMessage = createBotMessage(botResponse);
+        await saveMessage(botMessage);
+        setMessages(prevMessages => [...prevMessages, botMessage]);
+      } catch (error) {
+        console.error('Error generating bot response:', error);
+        // Fallback response if both Azure OpenAI and keyword system fail
+        const fallbackMessage = createBotMessage(
+          "Maaf, aku lagi mengalami sedikit gangguan. Bisa coba ulangi pesannya?"
+        );
+        setMessages(prevMessages => [...prevMessages, fallbackMessage]);
+      } finally {
+        setIsTyping(false);
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       alert('Gagal mengirim pesan. Silakan coba lagi.');
+      setIsTyping(false);
     }
   };
 

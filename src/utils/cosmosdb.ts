@@ -1,13 +1,13 @@
 import { CosmosClient, Container, Database } from '@azure/cosmos';
 
-const endpoint = import.meta.env.VITE_COSMOS_DB_ENDPOINT;
-const key = import.meta.env.VITE_COSMOS_DB_KEY;
-const databaseId = import.meta.env.VITE_COSMOS_DB_DATABASE_ID || 'jagajiwa';
+// Use the correct environment variable names from README
+const endpoint = import.meta.env.VITE_AZURE_COSMOS_ENDPOINT;
+const key = import.meta.env.VITE_AZURE_COSMOS_KEY;
+const databaseId = import.meta.env.VITE_AZURE_COSMOS_DATABASE_NAME || 'jagajiwa';
 
 console.log('🔍 Cosmos DB Configuration Debug:');
-console.log('Endpoint:', endpoint);
+console.log('Endpoint:', endpoint ? 'Set' : 'Not set');
 console.log('Key present:', !!key);
-console.log('Key length:', key ? key.length : 0);
 console.log('Database ID:', databaseId);
 
 // Check if Cosmos DB is properly configured
@@ -15,7 +15,10 @@ const isCosmosDBConfigured = !!(endpoint && key);
 
 if (!isCosmosDBConfigured) {
   console.warn('❌ Cosmos DB not configured, using localStorage fallback');
-  console.warn('Missing:', !endpoint ? 'ENDPOINT' : '', !key ? 'KEY' : '');
+  console.warn('Missing environment variables:', 
+    !endpoint ? 'VITE_AZURE_COSMOS_ENDPOINT' : '', 
+    !key ? 'VITE_AZURE_COSMOS_KEY' : ''
+  );
 } else {
   console.log('✅ Cosmos DB configured');
 }
@@ -37,15 +40,9 @@ export const getDatabase = async (): Promise<Database | null> => {
     });
     console.log('✅ Database operation successful');
     return database;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('❌ Database operation failed:');
-    console.error('Error name:', error.name);
-    console.error('Error message:', error.message);
-    console.error('Error status:', error.code);
-    if (error.body) {
-      console.error('Error body:', error.body);
-    }
-    console.error('Full error object:', error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -71,15 +68,9 @@ export const getContainer = async (containerId: string): Promise<Container | nul
     });
     console.log('✅ Container operation successful:', containerId);
     return container;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('❌ Container operation failed for:', containerId);
-    console.error('Error name:', error.name);
-    console.error('Error message:', error.message);
-    console.error('Error status:', error.code);
-    if (error.body) {
-      console.error('Error body:', error.body);
-    }
-    console.error('Full error object:', error);
+    console.error('Error:', error);
     return null;
   }
 };
@@ -90,6 +81,29 @@ export const getUserId = (): string => {
   if (!userId) {
     userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('jagajiwa-user-id', userId);
+    console.log('✅ Generated new user ID:', userId);
   }
   return userId;
+};
+
+// Test Cosmos DB connection
+export const testCosmosDBConnection = async (): Promise<boolean> => {
+  if (!isCosmosDBConfigured) {
+    console.log('❌ Cosmos DB not configured');
+    return false;
+  }
+
+  try {
+    const database = await getDatabase();
+    if (database) {
+      console.log('✅ Cosmos DB connection test successful');
+      return true;
+    } else {
+      console.log('❌ Cosmos DB connection test failed');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Cosmos DB connection test failed:', error);
+    return false;
+  }
 };

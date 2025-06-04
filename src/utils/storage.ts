@@ -27,7 +27,7 @@ export const saveAssessmentResult = async (result: AssessmentResult): Promise<vo
     
     await container.items.create(document);
     console.log('✅ Assessment saved to Cosmos DB');
-  } catch (error) {
+  } catch {
     console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
     // Fallback to localStorage
     const results = getAssessmentResultsFromLocal();
@@ -60,7 +60,7 @@ export const getAssessmentResults = async (): Promise<AssessmentResult[]> => {
       risk: item.risk,
       recommendation: item.recommendation
     }));
-  } catch (error) {
+  } catch {
     console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
     return getAssessmentResultsFromLocal();
   }
@@ -74,16 +74,18 @@ export const getLatestAssessmentResult = async (): Promise<AssessmentResult | nu
 export const deleteAssessmentResult = async (timestamp: number): Promise<void> => {
   try {
     const container = await getContainer('assessments');
-    const userId = getUserId();
-    const id = `${userId}_${timestamp}`;
+    if (!container) throw new Error('Cosmos DB not available');
     
-    await container.item(id, userId).delete();
-  } catch (error) {
-    console.error('Error deleting assessment result:', error);
+    const userId = getUserId();
+    const documentId = `${userId}_${timestamp}`;
+    
+    await container.item(documentId, userId).delete();
+  } catch {
+    console.error('Error deleting assessment result, using localStorage fallback');
     // Fallback to localStorage
     let results = getAssessmentResultsFromLocal();
-  results = results.filter(result => result.timestamp !== timestamp);
-  localStorage.setItem('assessmentResults', JSON.stringify(results));
+    results = results.filter(result => result.timestamp !== timestamp);
+    localStorage.setItem('assessmentResults', JSON.stringify(results));
   }
 };
 
@@ -91,8 +93,9 @@ export const deleteAssessmentResult = async (timestamp: number): Promise<void> =
 export const saveMoodEntry = async (entry: MoodEntry): Promise<void> => {
   try {
     const container = await getContainer('moods');
-    const userId = getUserId();
+    if (!container) throw new Error('Cosmos DB not available');
     
+    const userId = getUserId();
     const document = {
       id: `${userId}_${entry.timestamp}`,
       userId,
@@ -101,20 +104,25 @@ export const saveMoodEntry = async (entry: MoodEntry): Promise<void> => {
     };
     
     await container.items.create(document);
-  } catch (error) {
-    console.error('Error saving mood entry:', error);
-    // Fallback to localStorage
+    console.log('✅ Mood entry saved to Cosmos DB');
+  } catch {
+    console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
+    
+    // Always fallback to localStorage
     const entries = getMoodEntriesFromLocal();
-  entries.push(entry);
-  localStorage.setItem('moodEntries', JSON.stringify(entries));
+    // Remove any existing entry with the same timestamp
+    const filteredEntries = entries.filter(e => e.timestamp !== entry.timestamp);
+    filteredEntries.push(entry);
+    localStorage.setItem('moodEntries', JSON.stringify(filteredEntries));
   }
 };
 
 export const getMoodEntries = async (): Promise<MoodEntry[]> => {
   try {
     const container = await getContainer('moods');
-    const userId = getUserId();
+    if (!container) throw new Error('Cosmos DB not available');
     
+    const userId = getUserId();
     const { resources } = await container.items
       .query({
         query: 'SELECT * FROM c WHERE c.userId = @userId AND c.type = @type ORDER BY c.timestamp DESC',
@@ -125,14 +133,14 @@ export const getMoodEntries = async (): Promise<MoodEntry[]> => {
       })
       .fetchAll();
     
+    console.log('✅ Mood entries loaded from Cosmos DB');
     return resources.map(item => ({
       mood: item.mood,
       notes: item.notes,
       timestamp: item.timestamp
     }));
-  } catch (error) {
-    console.error('Error fetching mood entries:', error);
-    // Fallback to localStorage
+  } catch {
+    console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
     return getMoodEntriesFromLocal();
   }
 };
@@ -145,41 +153,51 @@ export const getLatestMoodEntry = async (): Promise<MoodEntry | null> => {
 export const updateMoodEntry = async (updatedEntry: MoodEntry): Promise<void> => {
   try {
     const container = await getContainer('moods');
+    if (!container) throw new Error('Cosmos DB not available');
+    
     const userId = getUserId();
-    const id = `${userId}_${updatedEntry.timestamp}`;
+    const entryId = `${userId}_${updatedEntry.timestamp}`;
     
     const document = {
-      id,
+      id: entryId,
       userId,
-      ...updatedEntry,
+      mood: updatedEntry.mood,
+      notes: updatedEntry.notes,
+      timestamp: updatedEntry.timestamp,
       type: 'mood'
     };
     
-    await container.item(id, userId).replace(document);
-  } catch (error) {
-    console.error('Error updating mood entry:', error);
+    await container.item(entryId, userId).replace(document);
+    console.log('✅ Mood entry updated in Cosmos DB');
+  } catch {
+    console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
+    
     // Fallback to localStorage
     let entries = getMoodEntriesFromLocal();
-  entries = entries.map(entry => 
-    entry.timestamp === updatedEntry.timestamp ? updatedEntry : entry
-  );
-  localStorage.setItem('moodEntries', JSON.stringify(entries));
+    entries = entries.map(entry => 
+      entry.timestamp === updatedEntry.timestamp ? updatedEntry : entry
+    );
+    localStorage.setItem('moodEntries', JSON.stringify(entries));
   }
 };
 
 export const deleteMoodEntry = async (timestamp: number): Promise<void> => {
   try {
     const container = await getContainer('moods');
-    const userId = getUserId();
-    const id = `${userId}_${timestamp}`;
+    if (!container) throw new Error('Cosmos DB not available');
     
-    await container.item(id, userId).delete();
-  } catch (error) {
-    console.error('Error deleting mood entry:', error);
+    const userId = getUserId();
+    const entryId = `${userId}_${timestamp}`;
+    
+    await container.item(entryId, userId).delete();
+    console.log('✅ Mood entry deleted from Cosmos DB');
+  } catch {
+    console.log('⚠️ Cosmos DB unavailable, using localStorage fallback');
+    
     // Fallback to localStorage
     let entries = getMoodEntriesFromLocal();
-  entries = entries.filter(entry => entry.timestamp !== timestamp);
-  localStorage.setItem('moodEntries', JSON.stringify(entries));
+    entries = entries.filter(entry => entry.timestamp !== timestamp);
+    localStorage.setItem('moodEntries', JSON.stringify(entries));
   }
 };
 
@@ -187,8 +205,9 @@ export const deleteMoodEntry = async (timestamp: number): Promise<void> => {
 export const saveMessage = async (message: Message): Promise<void> => {
   try {
     const container = await getContainer('messages');
-    const userId = getUserId();
+    if (!container) throw new Error('Cosmos DB not available');
     
+    const userId = getUserId();
     const document = {
       id: `${userId}_${message.id}`,
       userId,
@@ -197,20 +216,21 @@ export const saveMessage = async (message: Message): Promise<void> => {
     };
     
     await container.items.create(document);
-  } catch (error) {
-    console.error('Error saving message:', error);
+  } catch {
+    console.error('Error saving message, using localStorage fallback');
     // Fallback to localStorage
     const messages = getMessagesFromLocal();
-  messages.push(message);
-  localStorage.setItem('chatMessages', JSON.stringify(messages));
+    messages.push(message);
+    localStorage.setItem('chatMessages', JSON.stringify(messages));
   }
 };
 
 export const getMessages = async (): Promise<Message[]> => {
   try {
     const container = await getContainer('messages');
-    const userId = getUserId();
+    if (!container) throw new Error('Cosmos DB not available');
     
+    const userId = getUserId();
     const { resources } = await container.items
       .query({
         query: 'SELECT * FROM c WHERE c.userId = @userId AND c.type = @type ORDER BY c.timestamp ASC',
@@ -227,9 +247,8 @@ export const getMessages = async (): Promise<Message[]> => {
       sender: item.sender,
       timestamp: item.timestamp
     }));
-  } catch (error) {
-    console.error('Error fetching messages:', error);
-    // Fallback to localStorage
+  } catch {
+    console.error('Error fetching messages, using localStorage fallback');
     return getMessagesFromLocal();
   }
 };
@@ -237,8 +256,9 @@ export const getMessages = async (): Promise<Message[]> => {
 export const clearChatHistory = async (): Promise<void> => {
   try {
     const container = await getContainer('messages');
-    const userId = getUserId();
+    if (!container) throw new Error('Cosmos DB not available');
     
+    const userId = getUserId();
     const { resources } = await container.items
       .query({
         query: 'SELECT c.id FROM c WHERE c.userId = @userId AND c.type = @type',
@@ -253,8 +273,8 @@ export const clearChatHistory = async (): Promise<void> => {
     for (const resource of resources) {
       await container.item(resource.id, userId).delete();
     }
-  } catch (error) {
-    console.error('Error clearing chat history:', error);
+  } catch {
+    console.error('Error clearing chat history, using localStorage fallback');
     // Fallback to localStorage
     localStorage.setItem('chatMessages', JSON.stringify([]));
   }
@@ -262,16 +282,16 @@ export const clearChatHistory = async (): Promise<void> => {
 
 // Fallback functions for localStorage
 const getAssessmentResultsFromLocal = (): AssessmentResult[] => {
-  const results = localStorage.getItem('assessmentResults');
-  return results ? JSON.parse(results) : [];
+  const stored = localStorage.getItem('assessmentResults');
+  return stored ? JSON.parse(stored) : [];
 };
 
 const getMoodEntriesFromLocal = (): MoodEntry[] => {
-  const entries = localStorage.getItem('moodEntries');
-  return entries ? JSON.parse(entries) : [];
+  const stored = localStorage.getItem('moodEntries');
+  return stored ? JSON.parse(stored) : [];
 };
 
 const getMessagesFromLocal = (): Message[] => {
-  const messages = localStorage.getItem('chatMessages');
-  return messages ? JSON.parse(messages) : [];
+  const stored = localStorage.getItem('chatMessages');
+  return stored ? JSON.parse(stored) : [];
 };
