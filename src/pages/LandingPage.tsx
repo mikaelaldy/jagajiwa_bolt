@@ -61,36 +61,24 @@ const LandingPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard 
-              icon={<Users className="w-10 h-10 text-primary-500" />}
-              title="Self Assessment"
-              description="Evaluasi risiko kecanduan judi dan tingkat kesehatan mental Anda melalui kuis interaktif."
-              link="/assessment"
-            />
-            <FeatureCard 
-              icon={<MessageCircle className="w-10 h-10 text-primary-500" />}
-              title="JiwaBot"
-              description="Chatbot yang empatik untuk diskusi dan dukungan mengenai masalah perjudian dan kesehatan mental."
+              icon={<MessageSquare className="w-10 h-10 text-primary-500" />}
+              title="JiwaBot AI"
+              description="Chatbot AI yang ramah dan empatik untuk berbagi cerita dan mendapatkan dukungan awal."
               link="/chatbot"
             />
             <FeatureCard 
-              icon={<Activity className="w-10 h-10 text-primary-500" />}
+              icon={<ClipboardList className="w-10 h-10 text-primary-500" />}
+              title="Self Assessment"
+              description="Evaluasi diri untuk memahami tingkat risiko kecanduan judi dan kondisi kesehatan mental Anda."
+              link="/assessment"
+            />
+            <FeatureCard 
+              icon={<Calendar className="w-10 h-10 text-primary-500" />}
               title="Mood Tracker"
               description="Pantau dan lacak perubahan mood Anda untuk memahami pola dan pemicu masalah emosional."
               link="/mood-tracker"
-            />
-            <FeatureCard 
-              icon={<Brain className="w-10 h-10 text-primary-500" />}
-              title="Insight Edukatif"
-              description="Akses informasi dan pengetahuan tentang kecanduan judi dan dampaknya terhadap kesehatan mental."
-              link="#educational-insights"
-            />
-            <FeatureCard 
-              icon={<BookOpen className="w-10 h-10 text-primary-500" />}
-              title="Sumber Daya"
-              description="Kumpulan artikel, panduan, dan materi pendukung untuk pemulihan dan pencegahan."
-              link="#resources"
             />
             <FeatureCard 
               icon={<LifeBuoy className="w-10 h-10 text-primary-500" />}
