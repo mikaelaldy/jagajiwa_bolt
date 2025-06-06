@@ -149,30 +149,6 @@ VITE_AZURE_OPENAI_API_KEY=your-production-openai-key-here
 VITE_AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o-mini
 ```
 
-## 🎯 Hackathon Demo Points
-
-### Azure Cloud Integration
-- **Real-time cloud storage** with Azure Cosmos DB
-- **AI-powered chatbot** using Azure OpenAI
-- **Serverless architecture** for cost efficiency
-- **Cross-device data persistence**
-
-### User Experience
-- **No login required** - fully anonymous
-- **Responsive design** for all devices
-- **Graceful fallbacks** for offline usage
-- **Indonesian language** optimized for Gen Z
-
-### Technical Excellence
-- **TypeScript** for type safety
-- **Modern React** with hooks and context
-- **Cloud-first architecture** with local fallbacks
-- **Production-ready** deployment on Vercel
-
----
-
-**🏆 Built for Hackathon - Fully Functional MVP with Azure Integration**
-
 *Dibuat dengan ❤️ untuk kesehatan mental Indonesia.*
 
 **Creator:** [@mikascend](https://twitter.com/mikascend)
