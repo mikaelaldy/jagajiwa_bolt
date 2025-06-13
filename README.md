@@ -4,7 +4,7 @@ Reliefin adalah sebuah platform web yang dirancang untuk memberikan dukungan kes
 
 ## 🌟 Fitur yang Sudah Berfungsi
 
-**Live Demo:** [https://jagajiwa.mikascend.xyz/](https://jagajiwa.mikascend.xyz/)
+**Live Demo:** [https://reliefin.mikascend.xyz/](https://reliefin.mikascend.xyz/)
 
 ✅ **Landing Page:** Halaman utama yang informatif dengan penjelasan fitur
 ✅ **Self Assessment:** Sistem penilaian mandiri untuk kecanduan judi dan kesehatan mental
