@@ -45,7 +45,7 @@ Reliefin adalah sebuah platform web yang dirancang untuk memberikan dukungan kes
 ### 1. Clone Repository
 ```bash
 git clone [repository-url]
-cd JagaJiwa_bolt
+cd reliefin
 ```
 
 ### 2. Install Dependencies
