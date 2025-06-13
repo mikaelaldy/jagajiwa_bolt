@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
               <Logo className="w-8 h-8 mr-2" />
-              <span className="font-heading font-semibold text-xl text-primary-600">Jaga Jiwa</span>
+              <span className="font-heading font-semibold text-xl text-primary-600">Reliefin</span>
             </div>
             <p className="text-gray-600 mb-4 max-w-md">
               Platform kesehatan mental yang menyediakan dukungan untuk deteksi dini kecanduan judi online 
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <FooterLink to="/">Beranda</FooterLink>
               <FooterLink to="/assessment">Assessment</FooterLink>
-              <FooterLink to="/chatbot">JiwaBot</FooterLink>
+              <FooterLink to="/chatbot">Rely</FooterLink>
               <FooterLink to="/mood-tracker">Mood Tracker</FooterLink>
               <FooterLink to="/emergency">Bantuan Darurat</FooterLink>
             </ul>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-gray-200 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Jaga Jiwa. Semua hak dilindungi.
+            © {new Date().getFullYear()} Reliefin. Semua hak dilindungi.
           </p>
           <div className="flex items-center mt-4 md:mt-0">
             <span className="text-gray-500 text-sm mr-1">Made with</span>

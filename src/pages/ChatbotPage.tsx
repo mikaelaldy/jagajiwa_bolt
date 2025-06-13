@@ -124,7 +124,7 @@ const ChatbotPage: React.FC = () => {
       <div className="container py-8">
         <div className="max-w-3xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">JiwaBot</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Rely</h1>
             {messages.length > 1 && (
               <Button 
                 variant="outline" 
@@ -156,7 +156,7 @@ const ChatbotPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="px-4 py-3 bg-gray-100 text-gray-500 rounded-lg rounded-tl-none">
-                    JiwaBot sedang mengetik...
+                    Rely sedang mengetik...
                   </div>
                 </div>
               )}
@@ -172,7 +172,7 @@ const ChatbotPage: React.FC = () => {
           
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-500">
-              JiwaBot adalah AI yang dirancang untuk memberikan dukungan, bukan pengganti konsultasi profesional. 
+              Rely adalah AI yang dirancang untuk memberikan dukungan, bukan pengganti konsultasi profesional. 
               Untuk masalah serius, hubungi bantuan darurat di halaman 
               <a href="/emergency" className="text-primary-600 hover:underline"> Bantuan Darurat</a>.
             </p>

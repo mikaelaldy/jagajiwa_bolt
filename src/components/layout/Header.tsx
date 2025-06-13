@@ -34,7 +34,7 @@ const Header: React.FC = () => {
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <Logo className="w-8 h-8 mr-2" />
-          <span className="font-heading font-semibold text-xl text-primary-600">Jaga Jiwa</span>
+          <span className="font-heading font-semibold text-xl text-primary-600">Reliefin</span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
             Assessment
           </NavLink>
           <NavLink to="/chatbot" icon={<MessageCircle className="w-4 h-4 mr-1" />}>
-            JiwaBot
+            Rely
           </NavLink>
           <NavLink to="/mood-tracker" icon={<Activity className="w-4 h-4 mr-1" />}>
             Mood Tracker
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
               Assessment
             </MobileNavLink>
             <MobileNavLink to="/chatbot" icon={<MessageCircle className="w-5 h-5 mr-2" />}>
-              JiwaBot
+              Rely
             </MobileNavLink>
             <MobileNavLink to="/mood-tracker" icon={<Activity className="w-5 h-5 mr-2" />}>
               Mood Tracker

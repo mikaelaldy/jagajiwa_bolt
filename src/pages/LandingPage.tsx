@@ -35,7 +35,7 @@ const LandingPage: React.FC = () => {
                   icon={<MessageCircle className="w-5 h-5" />}
                   className="bg-primary-50 text-primary-600 border-primary-500 hover:bg-primary-500 hover:text-white hover:border-primary-500"
                 >
-                  Chat dengan JiwaBot
+                  Chat dengan Rely
                 </LinkButton>
               </div>
             </div>
@@ -56,7 +56,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Fitur Utama Kami</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Jaga Jiwa menyediakan beragam fitur untuk mendukung kesehatan mental Anda, membantu
+              Reliefin menyediakan beragam fitur untuk mendukung kesehatan mental Anda, membantu
               mendeteksi dan mencegah kecanduan judi online.
             </p>
           </div>
@@ -64,7 +64,7 @@ const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard 
               icon={<MessageSquare className="w-10 h-10 text-primary-500" />}
-              title="JiwaBot AI"
+              title="Rely AI"
               description="Chatbot AI yang ramah dan empatik untuk berbagi cerita dan mendapatkan dukungan awal."
               link="/chatbot"
             />
@@ -94,7 +94,7 @@ const LandingPage: React.FC = () => {
       <section className="bg-gray-50 py-20">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Mengapa Memilih Jaga Jiwa?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Mengapa Memilih Reliefin?</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               Platform yang dirancang khusus untuk masyarakat Indonesia, dengan fokus pada isu kesehatan mental dan kecanduan judi online. Bisa digunakan tanpa akun, sepenuhnya anonim, dan mudah diakses siapa saja.
             </p>
@@ -222,7 +222,7 @@ const LandingPage: React.FC = () => {
                 size="lg"
                 className="bg-transparent border-white text-white hover:bg-white hover:text-primary-600"
               >
-                Chat dengan JiwaBot
+                Chat dengan Rely
               </LinkButton>
             </div>
           </div>

@@ -9,13 +9,13 @@ const PrivacyPolicyPage: React.FC = () => {
           <h1 className="text-2xl font-bold text-gray-900 mb-6">Kebijakan Privasi</h1>
           <div className="prose lg:prose-xl">
             <p>
-              Selamat datang di Kebijakan Privasi Jaga Jiwa. Kami menghargai privasi Anda dan berkomitmen untuk melindunginya. 
+              Selamat datang di Kebijakan Privasi Reliefin. Kami menghargai privasi Anda dan berkomitmen untuk melindunginya. 
               Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, mengungkapkan, dan menjaga informasi Anda saat Anda mengunjungi aplikasi kami.
             </p>
             
             <h2 className="text-xl font-semibold mt-6 mb-2">Informasi yang Kami Kumpulkan</h2>
             <p>
-              Jaga Jiwa dirancang untuk dapat digunakan sepenuhnya secara anonim. Kami tidak memerlukan Anda untuk membuat akun atau memberikan informasi identitas pribadi apa pun untuk menggunakan fitur inti aplikasi kami. Data yang Anda masukkan, seperti hasil assessment dan catatan mood, disimpan secara lokal di perangkat Anda dan tidak dikirimkan atau disimpan di server kami.
+              Reliefin dirancang untuk dapat digunakan sepenuhnya secara anonim. Kami tidak memerlukan Anda untuk membuat akun atau memberikan informasi identitas pribadi apa pun untuk menggunakan fitur inti aplikasi kami. Data yang Anda masukkan, seperti hasil assessment dan catatan mood, disimpan secara lokal di perangkat Anda dan tidak dikirimkan atau disimpan di server kami.
             </p>
 
             <h2 className="text-xl font-semibold mt-6 mb-2">Penggunaan Informasi Anda</h2>
